@@ -23,11 +23,6 @@ public class GlobalExceptionHandler : IExceptionHandler
         return true; // Stop from anymore middleware running
     }
 
-    private void TryLogToDatabase(Exception exception, string traceId)
-    {
-        // Log to database
-    }
-
     private (int statusCode, string title) GetStatusCodeAndTitle(Exception exception)
     {
         // This is where I can handle other exceptions.

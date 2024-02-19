@@ -15,6 +15,7 @@ namespace DataAccessLayer;
 // 2. Implement global error handling https://code-maze.com/global-error-handling-aspnetcore/
 // - When I have Production configuration mute the default production/test appsettings.Production.json logging so we dont log the same error twice because I want everything to be logged by my global exception handler
 // - Actually set the Global Exception Handler to write the logs to a database table
+// 2. Setup key vault for secrets so I can make sure I can connect to the DB and write the logs
 // 2. Implement logging (see if I can leverage Azure Application insights)
 // - Looks like Application Insights handles logging for me in the controller. Test when I deploy it
 // - Also want to log when people change an entity

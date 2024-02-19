@@ -31,7 +31,7 @@ public partial class CarRentalContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionString =_keyVaultRepository.GetSecret("ConnectionString");
+        var connectionString = _keyVaultRepository.GetSecret("ConnectionString");
 
         optionsBuilder.UseSqlServer(connectionString);
     }
