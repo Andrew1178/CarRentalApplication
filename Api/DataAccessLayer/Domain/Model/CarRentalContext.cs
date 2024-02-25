@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
@@ -9,16 +10,16 @@ namespace DataAccessLayer;
 
 public partial class CarRentalContext : DbContext
 {
-    private readonly IKeyVaultRepository _keyVaultRepository;
-    public CarRentalContext(IKeyVaultRepository keyVaultRepository)
+    private readonly IConfiguration _configuration;
+    public CarRentalContext(IConfiguration configuration)
     {
-        _keyVaultRepository = keyVaultRepository;
+        _configuration = configuration;
     }
 
-    public CarRentalContext(DbContextOptions<CarRentalContext> options, IKeyVaultRepository keyVaultRepository)
+    public CarRentalContext(DbContextOptions<CarRentalContext> options, IConfiguration configuration)
         : base(options)
     {
-     _keyVaultRepository = keyVaultRepository;
+     _configuration = configuration;
     }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -31,9 +32,7 @@ public partial class CarRentalContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connectionString = _keyVaultRepository.GetSecret("ConnectionString");
-
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CarRentalContext"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
