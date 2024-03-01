@@ -5,38 +5,21 @@ using Microsoft.Extensions.Azure;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using System.Diagnostics;
 
-// TODO:
-// 1. For some reason dotnet run is hanging, I presume because of the logger. I will need to investigate this further.
-// 2. Fix the issue with the CurrentCultureInvariant case 
-// I think it's the same problem.
-// Hmm.. If I fix the CurrentCultureInVariant case issue, I dont think it will fix the logger.
-// 3. ACTUALLY..
-// The issue is my global exception handler is not being hit so Im not logging the error.
-// So it 
-
-
-// 3 issues
-// 1. Adding the logger to connect to SQL server for some reason means swagger does not run
-// 2. The logger is not actually logging to the SQL server (same issue as #1?)
-// 2. My exception middleware is not being hit
-// 3. I have an exception when trying to pull orders something about culture
-// Note when I try to tell the serilog to create the table it throws an exception... Same one as #3, I will try fix it first
 
  Log.Logger = new LoggerConfiguration() // Create a "bootstrap" logger that can be used to log errors in the application startup process because if you only initialize once, it will not have access to dependency injection and the app settings.
-     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-     .Enrich.FromLogContext()
-     .WriteTo.Console()
-     .CreateBootstrapLogger();
+      .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+      .Enrich.FromLogContext()
+      .WriteTo.Console()
+      .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 // builder.Services.AddAzureClients(azureClientFactoryBuilder => azureClientFactoryBuilder.AddSecretClient(new Uri(builder.Configuration["KeyVaultUri"])));
 
@@ -57,14 +40,16 @@ builder.Services.AddProblemDetails(); // Add standard problem details for error 
 var connectionString = builder.Configuration.GetConnectionString("CarRentalContext");
 
 // // Replace the bootstrap logger with the actual logger that will log to the database
- builder.Host.UseSerilog((context, services, configuration) => configuration
-     .ReadFrom.Configuration(context.Configuration)
-     .ReadFrom.Services(services)
-     .Enrich.FromLogContext()
-     // .WriteTo.Console()); //When uncommenting this, the logger actually logs
-      .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs"}));
+  builder.Host.UseSerilog((context, services, configuration) => configuration
+      .ReadFrom.Configuration(context.Configuration) // Read settings from appsettings.json
+      .ReadFrom.Services(services)//  configure the logging pipeline with any registered implementations of the following services: IDestructuringPolicy, ILogEventEnricher, ILogEventFilter, ILogEventSink, LoggingLevelSwitch
+      .Enrich.FromLogContext()
+      //.WriteTo.Console() // To have the Swagger UI show automatically when running the app, we must write to the the Console and SQL Server. This is because Swagger UI looks for a line in the log to tell it to open the UI. If I write the logs to SQL server, then the line doesnt show up and Swagger UI has to be manually run https://www.reddit.com/r/dotnet/comments/u3kuii/browser_not_launching_on_start_after_serilog_has/
+      .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", LevelSwitch = new Serilog.Core.LoggingLevelSwitch(LogEventLevel.Information) })); // Write to the database
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging(); // Exclude noisy handlers
 
 app.UseStatusCodePages(); // When UseStatusCodePages isn't used, navigating to a URL without an endpoint returns a browser-dependent error message indicating the endpoint can't be found. When UseStatusCodePages is called, the browser returns Status Code: 404; Not Found
 
