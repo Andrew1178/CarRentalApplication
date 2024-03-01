@@ -44,8 +44,8 @@ var connectionString = builder.Configuration.GetConnectionString("CarRentalConte
       .ReadFrom.Configuration(context.Configuration) // Read settings from appsettings.json
       .ReadFrom.Services(services)//  configure the logging pipeline with any registered implementations of the following services: IDestructuringPolicy, ILogEventEnricher, ILogEventFilter, ILogEventSink, LoggingLevelSwitch
       .Enrich.FromLogContext()
-      //.WriteTo.Console() // To have the Swagger UI show automatically when running the app, we must write to the the Console and SQL Server. This is because Swagger UI looks for a line in the log to tell it to open the UI. If I write the logs to SQL server, then the line doesnt show up and Swagger UI has to be manually run https://www.reddit.com/r/dotnet/comments/u3kuii/browser_not_launching_on_start_after_serilog_has/
-      .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", LevelSwitch = new Serilog.Core.LoggingLevelSwitch(LogEventLevel.Information) })); // Write to the database
+       .WriteTo.Logger(lc => lc.Filter.ByIncludingOnly(c => c.MessageTemplate.Text.StartsWith("Now listening on:")).WriteTo.Console()) // Write to the console here because otherwise the message be written to the DB and then SwaggerUI will not load automatically. This is a workaround and I believe is a bug with Serilog.
+       .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Logs", LevelSwitch = new Serilog.Core.LoggingLevelSwitch(LogEventLevel.Information) })); // Write to the database
 
 var app = builder.Build();
 
