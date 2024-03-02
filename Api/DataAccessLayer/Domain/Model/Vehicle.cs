@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccessLayer;
+namespace DataAccessLayer.Domain.Model;
 
 public partial class Vehicle
 {
     public int Id { get; set; }
+
+    public int TypeId { get; set; }
 
     public int MakeId { get; set; }
 
@@ -18,6 +20,4 @@ public partial class Vehicle
     public virtual VehicleMake Make { get; set; } = null!;
 
     public virtual ICollection<OrderContent> OrderContents { get; set; } = new List<OrderContent>();
-
-    public VehicleType Type { get; set; } = VehicleType.Car!;
 }

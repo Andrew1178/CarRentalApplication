@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Versioning;
+using DataAccessLayer.Domain.Model;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DataAccessLayer;

@@ -1,26 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Azure;
-using Microsoft.Extensions.Configuration;
 
-namespace DataAccessLayer;
+namespace DataAccessLayer.Domain.Model;
 
 public partial class CarRentalContext : DbContext
 {
-    private readonly IConfiguration _configuration;
-    public CarRentalContext(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
-    public CarRentalContext(DbContextOptions<CarRentalContext> options, IConfiguration configuration)
-        : base(options)
-    {
-     _configuration = configuration;
-    }
+    public virtual DbSet<Log> Logs { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -30,13 +16,14 @@ public partial class CarRentalContext : DbContext
 
     public virtual DbSet<VehicleMake> VehicleMakes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CarRentalContext"));
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Log>(entity =>
+        {
+            entity.Property(e => e.Level).HasMaxLength(128);
+            entity.Property(e => e.TimeStamp).HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Order__3214EC079CD0E5F6");

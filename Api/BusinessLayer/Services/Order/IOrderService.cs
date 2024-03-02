@@ -1,4 +1,4 @@
-﻿using DataAccessLayer;
+﻿using DataAccessLayer.Domain.Model;
 
 namespace BusinessLayer;
 

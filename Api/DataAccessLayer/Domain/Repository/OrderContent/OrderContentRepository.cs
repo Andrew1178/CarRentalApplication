@@ -1,4 +1,6 @@
-﻿namespace DataAccessLayer;
+﻿using DataAccessLayer.Domain.Model;
+
+namespace DataAccessLayer;
 
 public class OrderContentRepository : CrudRepository<OrderContent>, IOrderContentRepository
 {

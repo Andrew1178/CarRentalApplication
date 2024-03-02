@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using DataAccessLayer;
+using DataAccessLayer.Domain.Model;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace BusinessLayer;

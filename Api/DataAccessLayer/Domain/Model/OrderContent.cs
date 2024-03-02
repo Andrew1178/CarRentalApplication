@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccessLayer;
+namespace DataAccessLayer.Domain.Model;
 
-public partial record OrderContent
+public partial class OrderContent
 {
     public int Id { get; set; }
 
