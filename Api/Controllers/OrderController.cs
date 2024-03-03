@@ -39,7 +39,7 @@ public async Task<ActionResult<VehicleDto>> Get(int id)
     return Ok(vehicleMake);
 }
 
-[HttpPost] async Task<ActionResult<OrderDto>> Create(OrderDto order)
+[HttpPost] public async Task<ActionResult<OrderDto>> Create(OrderDto order)
 {
     await _orderService.AddAsync(order);
     return CreatedAtAction(nameof(Get), new { id = order.Id }, order);
@@ -47,7 +47,7 @@ public async Task<ActionResult<VehicleDto>> Get(int id)
 
 // TODO: Make admin only
 [HttpPut("{id}")]
-public async Task<IActionResult> Update(int id, OrderDto order)
+public async Task<IActionResult> Update(Guid id, OrderDto order)
 {
     if (id != order.Id)
         return BadRequest();

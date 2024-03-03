@@ -5,11 +5,11 @@ namespace DataAccessLayer.Domain.Model;
 
 public partial class Vehicle
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public int TypeId { get; set; }
 
-    public int MakeId { get; set; }
+    public Guid MakeId { get; set; }
 
     public string Name { get; set; } = null!;
 

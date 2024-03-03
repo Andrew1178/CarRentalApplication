@@ -2,8 +2,8 @@
 
 public class OrderDto
 {
-public int Id { get; set; }
-    public int UserId { get; set; } // TODO: This should be the username
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; } // TODO: This should be the username
 
     public DateTime OrderedOn { get; set; }
 

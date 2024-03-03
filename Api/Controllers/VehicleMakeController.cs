@@ -31,7 +31,7 @@ public async Task<ActionResult<VehicleMakeDto>> Get(int id)
 }
 
 
-[HttpPost] async Task<ActionResult<VehicleMakeDto>> Create(VehicleMakeDto vehicleMake)
+[HttpPost] public async Task<ActionResult<VehicleMakeDto>> Create(VehicleMakeDto vehicleMake)
 {
     await _vehicleMakeService.AddAsync(vehicleMake);
     return CreatedAtAction(nameof(Get), new { id = vehicleMake.Id }, vehicleMake);
@@ -39,7 +39,7 @@ public async Task<ActionResult<VehicleMakeDto>> Get(int id)
 
 
 [HttpPut("{id}")]
-public async Task<IActionResult> Update(int id, VehicleMakeDto vehicleMake)
+public async Task<IActionResult> Update(Guid id, VehicleMakeDto vehicleMake)
 {
     if (id != vehicleMake.Id)
         return BadRequest();

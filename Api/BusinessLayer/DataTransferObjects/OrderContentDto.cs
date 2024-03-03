@@ -2,7 +2,7 @@
 
 public class OrderContentDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public decimal VehicleUsDollarRatePerDay { get; set; }
 
     public DateTime DateFrom { get; set; }

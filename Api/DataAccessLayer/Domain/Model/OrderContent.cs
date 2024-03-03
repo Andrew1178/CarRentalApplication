@@ -5,11 +5,11 @@ namespace DataAccessLayer.Domain.Model;
 
 public partial class OrderContent
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    public int OrderId { get; set; }
+    public Guid OrderId { get; set; }
 
-    public int VehicleId { get; set; }
+    public Guid VehicleId { get; set; }
 
     public decimal VehicleUsDollarRatePerDay { get; set; }
 

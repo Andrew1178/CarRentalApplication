@@ -30,14 +30,14 @@ public async Task<ActionResult<VehicleDto>> Get(int id)
     return Ok(vehicleMake);
 }
 
-[HttpPost] async Task<ActionResult<VehicleDto>> Create(VehicleDto vehicle)
+[HttpPost] public async Task<ActionResult<VehicleDto>> Create(VehicleDto vehicle)
 {
     await _vehicleService.AddAsync(vehicle);
     return CreatedAtAction(nameof(Get), new { id = vehicle.Id }, vehicle);
 }
 
 [HttpPut("{id}")]
-public async Task<IActionResult> Update(int id, VehicleDto vehicle)
+public async Task<IActionResult> Update(Guid id, VehicleDto vehicle)
 {
     if (id != vehicle.Id)
         return BadRequest();
