@@ -4,7 +4,7 @@ using DataAccessLayer;
 
 namespace BusinessLayer;
 
-public abstract class CrudService<Tdto, TEntity> : ICrudService<Tdto, TEntity> where Tdto: class where TEntity : class
+internal abstract class CrudService<Tdto, TEntity> : ICrudService<Tdto, TEntity> where Tdto: class where TEntity : class
 {
     public CrudService(IUnitOfWork unitOfWork, ICrudRepository<TEntity> crudRepository, IMapper mapper)
     {

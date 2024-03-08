@@ -4,7 +4,7 @@ using DataAccessLayer.Domain.Model;
 
 namespace BusinessLayer;
 
-public class OrderContentService : CrudService<OrderContentDto, OrderContent>, IOrderContentService
+internal class OrderContentService : CrudService<OrderContentDto, OrderContent>, IOrderContentService
 {
     public OrderContentService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, unitOfWork.OrderContentRepository, mapper)
     {
