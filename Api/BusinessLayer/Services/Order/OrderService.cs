@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace BusinessLayer;
 
-internal class OrderService : CrudService<OrderDto, Order>, IOrderService
+public class OrderService : CrudService<OrderDto, Order>, IOrderService
 {
     public OrderService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, unitOfWork.OrderRepository, mapper)
     {

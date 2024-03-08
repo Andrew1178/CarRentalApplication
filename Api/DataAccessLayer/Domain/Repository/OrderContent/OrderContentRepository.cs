@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer;
 
-internal class OrderContentRepository : CrudRepository<OrderContent>, IOrderContentRepository
+public class OrderContentRepository : CrudRepository<OrderContent>, IOrderContentRepository
 {
     public OrderContentRepository(CarRentalContext carRentalContext) : base(carRentalContext)
     {

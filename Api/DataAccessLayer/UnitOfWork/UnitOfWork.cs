@@ -7,6 +7,11 @@ namespace DataAccessLayer;
 // TODO:
 // 2. Add validation to the DTO/Entities
 // - Implement the onion architecture to: https://code-maze.com/onion-architecture-in-aspnetcore/
+//  - Introduce abstration csprojs for the services and repositories
+//  - Move the interfaces to the abstration csprojs
+//  - Separate the startup folder into another cs proj and allow it to have references to both the abstration and concrete implementations
+//  - Change the other csproj's to only have access to the abstration csprojs
+//  - This will: Force the developers to use abstractions and not the concrete implementations (which is good for testing and swapping out implementations)
 //  1. Keep the dependencies pointing inwards
 //  2. Improve testability because everything is abstracted
 // 2. Implement global error handling https://code-maze.com/global-error-handling-aspnetcore/

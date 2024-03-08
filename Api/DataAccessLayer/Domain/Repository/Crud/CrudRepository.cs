@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer;
 
-internal abstract class CrudRepository<T> : ICrudRepository<T> where T : class{
+public abstract class CrudRepository<T> : ICrudRepository<T> where T : class{
 
     private readonly CarRentalContext _carRentalContext;
     public CrudRepository(CarRentalContext carRentalContext) => _carRentalContext = carRentalContext;

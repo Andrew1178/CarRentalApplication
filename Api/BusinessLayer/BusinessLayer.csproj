@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+<PropertyGroup>
+  <AssemblyName>BusinessLayer</AssemblyName>
+  <RootNamespace>BusinessLayer</RootNamespace>
+</PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
   </ItemGroup>
