@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace DataAccessLayer;
 
 // TODO:
+// 1. Figure out how to remove the project references from the Api to the other project references. It seems to have a native reference and this is adding extra folders in the csproj that link to the other projects which I dont like
 // 2. Add validation to the DTO/Entities
 // - Implement the onion architecture to: https://code-maze.com/onion-architecture-in-aspnetcore/
 //  - Introduce abstration csprojs for the services and repositories
