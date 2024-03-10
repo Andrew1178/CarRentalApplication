@@ -1,7 +1,8 @@
-﻿using BusinessLayer;
+﻿using BusinessLayerAbstractions;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api;
+namespace Controllers;
 
 [ApiController]
 [Route("[controller]")]

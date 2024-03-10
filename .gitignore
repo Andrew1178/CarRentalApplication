@@ -3,3 +3,15 @@ obj/
 Debug/
 Release/
 .vs/
+Controllers/bin/
+Controllers/obj/
+BusinessLayer/bin/
+BusinessLayer/obj/
+BusinessLayerAbstractions/bin/
+BusinessLayerAbstractions/obj/
+DataAccessLayer/bin/
+DataAccessLayer/obj/
+DataAccessLayerAbstractions/bin/
+DataAccessLayerAbstractions/obj/
+Domain/bin/
+Domain/obj/

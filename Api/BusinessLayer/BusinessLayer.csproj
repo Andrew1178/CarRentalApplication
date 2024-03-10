@@ -3,13 +3,18 @@
 <PropertyGroup>
   <AssemblyName>BusinessLayer</AssemblyName>
   <RootNamespace>BusinessLayer</RootNamespace>
+  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>   
 </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayerAbstractions\DataAccessLayerAbstractions.csproj" />
+    <ProjectReference Include="..\BusinessLayerAbstractions\BusinessLayerAbstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Automapper" Version="13.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 

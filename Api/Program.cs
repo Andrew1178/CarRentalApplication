@@ -6,7 +6,11 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Diagnostics;
-using DataAccessLayer.Domain.Model;
+using BusinessLayerAbstractions;
+using Domain;
+using DataAccessLayerAbstractions;
+using Controllers;
+
 
 Serilog.Log.Logger = new LoggerConfiguration() // Create a "bootstrap" logger that can be used to log errors in the application startup process because if you only initialize once, it will not have access to dependency injection and the app settings.
       .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -17,7 +21,7 @@ Serilog.Log.Logger = new LoggerConfiguration() // Create a "bootstrap" logger th
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddApplicationPart(Assembly.GetAssembly(typeof(ErrorController))); // Specify the assembly that contains the ErrorController so that it can be added to the application parts. This is necessary because the ErrorController is not in the same assembly as the Program.cs file.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

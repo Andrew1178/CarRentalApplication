@@ -3,6 +3,8 @@
 <PropertyGroup>
   <AssemblyName>DataAccessLayer</AssemblyName>
   <RootNamespace>DataAccessLayer</RootNamespace>
+  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>   
 </PropertyGroup>
 
   <PropertyGroup>
@@ -18,7 +20,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayerAbstractions\DataAccessLayerAbstractions.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
