@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using BusinessLayerAbstractions;
 using DataAccessLayerAbstractions;
 using Domain;
 
-namespace BusinessLayerAbstractions;
+namespace Api;
 
 public class AutoMapperProfile : Profile
 {

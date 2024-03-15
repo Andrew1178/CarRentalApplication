@@ -10,6 +10,7 @@ using BusinessLayerAbstractions;
 using Domain;
 using DataAccessLayerAbstractions;
 using Controllers;
+using Api;
 
 
 Serilog.Log.Logger = new LoggerConfiguration() // Create a "bootstrap" logger that can be used to log errors in the application startup process because if you only initialize once, it will not have access to dependency injection and the app settings.
@@ -37,7 +38,7 @@ builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 builder.Services.AddScoped(typeof(IOrderContentRepository), typeof(OrderContentRepository));
 builder.Services.AddScoped(typeof(IVehicleRepository), typeof(VehicleRepository));
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddProblemDetails(); // Add standard problem details for error handling when showing the response to the user
  builder.Services.AddExceptionHandler<Api.GlobalExceptionHandler>(); // Add the global exception handler to the builder
 
