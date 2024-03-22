@@ -1,11 +1,14 @@
 ﻿using BusinessLayerAbstractions;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 
 namespace Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
+[RequiredScope(RequiredScopesConfigurationKey = "AzureAd:scopes")] 
+// [Authorize]
 public class VehicleController : ControllerBase
 {
     private IVehicleService _vehicleService;
@@ -19,6 +22,21 @@ public class VehicleController : ControllerBase
  {
      return Ok(await _vehicleService.GetAllAsync());
  }
+
+    [HttpGet]
+   [Authorize]
+  public async Task<ActionResult<IEnumerable<VehicleDto>>> GetAuthorized()
+  {
+      return Ok(await _vehicleService.GetAllAsync());
+  }
+
+
+   [HttpGet]
+   [Authorize(Roles = "Administrator")]
+  public async Task<ActionResult<IEnumerable<VehicleDto>>> GetAdmin()
+  {
+      return Ok(await _vehicleService.GetAllAsync());
+  }
 
 [HttpGet("{id}")]
 public async Task<ActionResult<VehicleDto>> Get(int id)

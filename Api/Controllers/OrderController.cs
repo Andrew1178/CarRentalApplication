@@ -1,4 +1,5 @@
 ﻿using BusinessLayerAbstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers;
@@ -14,7 +15,7 @@ TODO
     6. Put delete in a separate repository/service. I don't want people to delete orders. Only cancel
 */  
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class OrderController : ControllerBase
 {
     private IOrderService _orderService;

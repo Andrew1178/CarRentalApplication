@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+[Route("[controller]/[action]")]
 public class ErrorController : ControllerBase
 {
 [Route("/error")]

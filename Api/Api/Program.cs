@@ -11,6 +11,8 @@ using Domain;
 using DataAccessLayerAbstractions;
 using Controllers;
 using Api;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 
 
 Serilog.Log.Logger = new LoggerConfiguration() // Create a "bootstrap" logger that can be used to log errors in the application startup process because if you only initialize once, it will not have access to dependency injection and the app settings.
@@ -27,7 +29,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 // builder.Services.AddAzureClients(azureClientFactoryBuilder => azureClientFactoryBuilder.AddSecretClient(new Uri(builder.Configuration["KeyVaultUri"])));
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddScoped(typeof(IVehicleMakeService), typeof(VehicleMakeService));
 builder.Services.AddScoped(typeof(IOrderService), typeof(OrderService));
 builder.Services.AddScoped(typeof(IOrderContentService), typeof(OrderContentService));
@@ -40,7 +42,7 @@ builder.Services.AddScoped(typeof(IVehicleRepository), typeof(VehicleRepository)
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddProblemDetails(); // Add standard problem details for error handling when showing the response to the user
- builder.Services.AddExceptionHandler<Api.GlobalExceptionHandler>(); // Add the global exception handler to the builder
+builder.Services.AddExceptionHandler<Api.GlobalExceptionHandler>(); // Add the global exception handler to the builder
 
 var connectionString = builder.Configuration.GetConnectionString("CarRentalContext");
 
@@ -70,6 +72,7 @@ else{
 
 app.UseHttpsRedirection();
 
+ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

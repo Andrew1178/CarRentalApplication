@@ -1,11 +1,11 @@
 ﻿using BusinessLayerAbstractions;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class VehicleMakeController : ControllerBase
 {
     private IVehicleMakeService _vehicleMakeService;
