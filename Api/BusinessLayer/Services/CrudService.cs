@@ -14,11 +14,11 @@ public abstract class CrudService<Tdto, TEntity> : ICrudService<Tdto, TEntity> w
         Mapper = mapper;
     }
 
-    public IUnitOfWork UnitOfWork {get; }
+    public IUnitOfWork UnitOfWork { get; }
 
-    public ICrudRepository<TEntity> Repository {get; }
+    public ICrudRepository<TEntity> Repository { get; }
     
-    public IMapper Mapper {get; }
+    public IMapper Mapper { get; }
 
     public async Task<IEnumerable<Tdto>> GetAllAsync(){
         var items = await Repository.GetAllAsync();
@@ -29,11 +29,11 @@ public abstract class CrudService<Tdto, TEntity> : ICrudService<Tdto, TEntity> w
         return Mapper.Map<TEntity?, Tdto?>(item);
     }
     
-    public IEnumerable<Tdto?> Find(Expression<Func<Tdto, bool>> expression)
+    public IEnumerable<Tdto> Find(Expression<Func<Tdto, bool>> expression)
     {
         var modelExpression = Mapper.Map<Expression<Func<Tdto, bool>>, Expression<Func<TEntity, bool>>>(expression);
         var items = Repository.Find(modelExpression);
-        return Mapper.Map<IEnumerable<TEntity?>, IEnumerable<Tdto?>>(items);
+        return Mapper.Map<IEnumerable<TEntity>, IEnumerable<Tdto>>(items);
      }
 
     public async Task AddAsync(Tdto model){

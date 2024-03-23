@@ -49,6 +49,7 @@ namespace DataAccessLayer;
 // 10. Write tests
 // 11. Test
 // 12. Deploy
+// 13. Turn on treat warnings as errors if possible for each project
 public class UnitOfWork : IUnitOfWork
 {
     private readonly CarRentalContext _carRentalContext;

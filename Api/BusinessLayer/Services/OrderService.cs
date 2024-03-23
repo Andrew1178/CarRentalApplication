@@ -14,7 +14,18 @@ public class OrderService : CrudService<OrderDto, Order>, IOrderService
 
     public async Task<int> CancelAsync(OrderDto order)
     {
+        if (order.CancelledOn.HasValue)
+            throw new InvalidOperationException("Order is already cancelled.");
+
         order.CancelledOn = DateTime.Now;
         return await UpdateAsync(order);
+    }
+
+    public IEnumerable<OrderDto> GetAll(string emailAddress)
+    {
+        if (string.IsNullOrWhiteSpace(emailAddress))
+            throw new ArgumentNullException(nameof(emailAddress)); 
+
+        return Find(orderDto => orderDto.EmailAddress == emailAddress);
     }
 }

@@ -7,7 +7,7 @@ namespace DataAccessLayerAbstractions;
 public interface ICrudRepository<T> where T : class { 
     public Task<IEnumerable<T>> GetAllAsync();
     public ValueTask<T?> GetAsync(int modelId);
-    public IEnumerable<T?> Find(Expression<Func<T, bool>> expression);
+    public IEnumerable<T> Find(Expression<Func<T, bool>> expression);
     public Task AddAsync(T model);
     public Task AddRangeAsync(IEnumerable<T> models);
     public void Update(T model);
